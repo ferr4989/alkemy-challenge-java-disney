@@ -1,0 +1,4 @@
+com\nesper\alkemy\springboot\disney\models\entity\Character.class
+com\nesper\alkemy\springboot\disney\Application.class
+com\nesper\alkemy\springboot\disney\models\entity\Genre.class
+com\nesper\alkemy\springboot\disney\models\entity\Movie.class
