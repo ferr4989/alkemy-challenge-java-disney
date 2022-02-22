@@ -1,4 +1,10 @@
 com\nesper\alkemy\springboot\disney\models\entity\Character.class
-com\nesper\alkemy\springboot\disney\Application.class
+com\nesper\alkemy\springboot\disney\controllers\GenreRestController.class
+com\nesper\alkemy\springboot\disney\models\dao\ICharacterDao.class
+com\nesper\alkemy\springboot\disney\controllers\MovieRestController.class
 com\nesper\alkemy\springboot\disney\models\entity\Genre.class
 com\nesper\alkemy\springboot\disney\models\entity\Movie.class
+com\nesper\alkemy\springboot\disney\models\dao\IMovieDao.class
+com\nesper\alkemy\springboot\disney\controllers\CharacterRestController.class
+com\nesper\alkemy\springboot\disney\Application.class
+com\nesper\alkemy\springboot\disney\models\dao\IGenreDao.class
