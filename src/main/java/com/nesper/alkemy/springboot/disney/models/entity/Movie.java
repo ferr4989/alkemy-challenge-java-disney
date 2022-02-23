@@ -19,11 +19,11 @@ public class Movie implements Serializable {
     private Long id;
 
     private String image;
-    private String title;
+    private String name;
 
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern="dd-MM-yyyy")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createAt;
     @Min(value= 1, message = "Debe elegir una calificacion del 1 al 5")
     @Max(value= 5 ,message = "Debe elegir una calificacion del 1 al 5")
