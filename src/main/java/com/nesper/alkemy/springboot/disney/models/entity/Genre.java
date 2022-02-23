@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,10 +18,11 @@ public class Genre implements Serializable {
     private String name;
     private String image;
 
-    /* falta relacionar tablas de uno a muchos
-    @OneToMany(mappedBy = "")
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_genre")
     private List<Movie> movies;
-    */
+
 
     private static final long serialVersionUID = 1L;
 

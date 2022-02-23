@@ -1,7 +1,10 @@
 package com.nesper.alkemy.springboot.disney.controllers;
 
+import antlr.ASTNULLType;
 import com.nesper.alkemy.springboot.disney.models.entity.Character;
+import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.services.ICharacterService;
+import com.nesper.alkemy.springboot.disney.models.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,8 @@ import java.util.List;
 
 @RestController
 public class CharacterRestController {
+
+    private UserService userService;
 
     @Autowired
     private ICharacterService characterService;

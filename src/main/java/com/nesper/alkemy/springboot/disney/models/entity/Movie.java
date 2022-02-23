@@ -7,7 +7,10 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,10 +32,8 @@ public class Movie implements Serializable {
     @Max(value= 5 ,message = "Debe elegir una calificacion del 1 al 5")
     private int score;
 
-    /* falta relacionar tablas de muchos a muchos
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(mappedBy = "movies")
     private List<Character> characters;
-    */
 
     private static final long serialVersionUID = 1L;
 }

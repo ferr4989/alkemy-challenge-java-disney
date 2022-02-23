@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,10 +23,11 @@ public class Character implements Serializable {
     private float weight;
     private String history;
 
-    /* falta relacionar tablas de muchos a muchos
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "tbl_characters_movies", joinColumns = @JoinColumn(name="character_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"character_id", "movie_id"}))
     private List<Movie> movies;
-    */
 
     private static final long serialVersionUID = 1L;
 }
