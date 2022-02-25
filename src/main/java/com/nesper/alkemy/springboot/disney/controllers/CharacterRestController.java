@@ -1,10 +1,9 @@
 package com.nesper.alkemy.springboot.disney.controllers;
 
-import antlr.ASTNULLType;
+
 import com.nesper.alkemy.springboot.disney.models.entity.Character;
-import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.services.ICharacterService;
-import com.nesper.alkemy.springboot.disney.models.services.UserService;
+import com.nesper.alkemy.springboot.disney.models.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @RestController
 public class CharacterRestController {
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private ICharacterService characterService;
@@ -30,14 +29,13 @@ public class CharacterRestController {
         return characterService.findAll();
     }
 
-    @PostMapping("/characters")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/createCharacter")
     public Character create(@RequestBody Character character) {
         this.characterService.save(character);
         return character;
     }
 
-    @PutMapping("/characters/{id}")
+    @PostMapping("/updateCharacter/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Character update(@RequestBody Character character, @PathVariable Long id) {
         Character currentCharacter = this.characterService.findById(id);
@@ -50,11 +48,10 @@ public class CharacterRestController {
         return currentCharacter;
     }
 
-    @DeleteMapping("/characters/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @GetMapping("/deleteCharacter/{id}")
     public void delete(@PathVariable Long id) {
-        Character currentCharacter = this.characterService.findById(id);
-        this.characterService.delete(currentCharacter);
+        Character currentCharacter = characterService.findById(id);
+        characterService.delete(currentCharacter);
     }
 
     @GetMapping("/characters/name={name}")

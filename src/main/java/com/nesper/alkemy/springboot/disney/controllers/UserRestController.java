@@ -1,9 +1,8 @@
 package com.nesper.alkemy.springboot.disney.controllers;
 
-
 import com.nesper.alkemy.springboot.disney.models.entity.User;
-import com.nesper.alkemy.springboot.disney.models.services.UserService;
-//import com.nesper.alkemy.springboot.disney.models.services.EmailService;
+import com.nesper.alkemy.springboot.disney.models.services.UserServiceImpl;
+import com.nesper.alkemy.springboot.disney.models.services.SendGridService;
 
 
 //import com.auth0.jwt.JWT;
@@ -13,11 +12,10 @@ import com.nesper.alkemy.springboot.disney.models.services.UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import javax.validation.Valid;
-import java.net.URI;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -27,8 +25,10 @@ import java.util.List;
 public class UserRestController {
 
     @Autowired
-    private UserService userService;
-   // private final EmailService emailService;
+    private UserServiceImpl userService;
+
+    @Autowired
+    private SendGridService sendGridService;
 
     @GetMapping("/users")
     public List<User> listAll() {
@@ -36,11 +36,12 @@ public class UserRestController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> guardarUsuario(@Valid @RequestBody User user){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/auth/guardar").toUriString());
-//        emailService.sendEmail(usuario.getEmail());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+    @ResponseStatus(HttpStatus.CREATED)
+    public User registerUser(@RequestBody User user) throws IOException {
+        sendGridService.sendEmail(user.getEmail());
+        this.userService.saveUser(user);
+        return user;
     }
 
-    }
+}
 

@@ -10,6 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.validation.constraints.NotEmpty;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,14 +26,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception{
+    public void configure(AuthenticationManagerBuilder build) throws Exception{
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests()
+                .antMatchers("/auth/login/**", "/auth/register/**", "/sendEmail/**").permitAll()
                 .antMatchers("/users/**", "/characters/**", "/movies/**", "/genre/**")
-                .hasRole("ADMIN")
+                .permitAll()
+//                .hasRole("ADMIN")
                 .antMatchers("/")
                 .hasAnyRole("USER","ADMIN")
                 .and()
@@ -38,17 +47,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    /*    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{noop}123")
-                .roles("ADMIN","USER")
-                .and()
-                .withUser("user")
-                .password("{noop}123")
-                .roles("USER")
-        ;
-    }*/
+    /*
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        ConfigAutenticacionFilter configAutenticacionFilter = new ConfigAutenticacionFilter(authenticationManagerBean());
+        configAutenticacionFilter.setFilterProcessesUrl("/auth/login");
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.authorizeRequests().antMatchers("/auth/login/**", "/auth/register/**").permitAll();
+//        FALTA IMPLEMENTAR ROLES:
+//        http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROL_USUARIO");
+//        http.authorizeRequests().antMatchers(POST, "/auth/usuarios", "/auth/rol/**").hasAnyAuthority("ROL_ADMIN");
+//        http.authorizeRequests().antMatchers(GET, "/**").hasAnyAuthority("ROL_ADMIN");
+        http.authorizeRequests().anyRequest()
+                .authenticated();
+//                .permitAll();
+        http.addFilter(configAutenticacionFilter);
+        http.addFilterBefore(new ConfigAutorizacionFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+        return super.authenticationManagerBean();
+    }
+    */
+
 
 }

@@ -14,7 +14,7 @@ public interface ICharacterService {
 
     Character findById(Long id);
 
-    void delete(Character cliente);
+    void delete(Character character);
 
     List<ArrayList> listImageAndName();
 

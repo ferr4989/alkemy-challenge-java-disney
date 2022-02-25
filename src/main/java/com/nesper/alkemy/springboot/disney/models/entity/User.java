@@ -3,7 +3,9 @@ package com.nesper.alkemy.springboot.disney.models.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
 import lombok.Data;
 
 @Entity
@@ -21,6 +23,9 @@ public class User implements Serializable {
 
     @NotEmpty
     private String password;
+
+    @Email
+    private String email;
 
     @OneToMany
     @JoinColumn(name="id_user")

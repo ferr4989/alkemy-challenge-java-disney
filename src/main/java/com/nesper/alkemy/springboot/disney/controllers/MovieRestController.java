@@ -25,14 +25,14 @@ public class MovieRestController {
         return movieService.findAll();
     }
 
-    @PostMapping("/movies")
+    @PostMapping("/createMovie")
     @ResponseStatus(HttpStatus.CREATED)
     public Movie create(@RequestBody Movie movie) {
         this.movieService.save(movie);
         return movie;
     }
 
-    @PutMapping("/movies/{id}")
+    @PostMapping("/updateMovie/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Movie update(@RequestBody Movie movie, @PathVariable Long id) {
         Movie currentMovie = this.movieService.findById(id);
@@ -44,8 +44,7 @@ public class MovieRestController {
         return currentMovie;
     }
 
-    @DeleteMapping("/movies/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @GetMapping("/deleteMovie/{id}")
     public void delete(@PathVariable Long id) {
         Movie currentMovie = this.movieService.findById(id);
         this.movieService.delete(currentMovie);

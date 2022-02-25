@@ -10,6 +10,6 @@ INSERT INTO movies (image, name, create_at, score) VALUES('url4', 'pluto espacia
 INSERT INTO genres (name, image) VALUES('Comedia', 'url1');
 INSERT INTO genres (name, image) VALUES('Romantica', 'url2');
 INSERT INTO genres (name, image) VALUES('Aventura', 'url3');
-INSERT INTO users (username, password) VALUES('ADMIN', '123');
-INSERT INTO users (username, password) VALUES('USER', '1234');
-INSERT INTO users (username, password) VALUES('FER', '1111');
+INSERT INTO users (username, password, email) VALUES('fer', '$2a$10$No91uay4aAM6HgbshxWKq.lThNLyvWd5ZoBtm1xaZQGG1gX9UPjY2', 'fernandonesper@gmail.com');
+INSERT INTO users (username, password, email) VALUES('lau', '$2a$10$No91uay4aAM6HgbshxWKq.lThNLyvWd5ZoBtm1xaZQGG1gX9UPjY2','fernandonesper@gmail.com');
+INSERT INTO users (username, password, email) VALUES('sofivale', '$2a$10$No91uay4aAM6HgbshxWKq.lThNLyvWd5ZoBtm1xaZQGG1gX9UPjY2','fernandonesper@gmail.com');
