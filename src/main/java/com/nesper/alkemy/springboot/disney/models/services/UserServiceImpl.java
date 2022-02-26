@@ -3,7 +3,6 @@ package com.nesper.alkemy.springboot.disney.models.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nesper.alkemy.springboot.disney.models.entity.Genre;
 import com.nesper.alkemy.springboot.disney.models.entity.Role;
 import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.dao.IUserDao;
@@ -36,7 +35,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
         var roles = new ArrayList<GrantedAuthority>();
 
         for(Role role: user.getRoles()){
-            roles.add(new SimpleGrantedAuthority(role.getNombre()));
+            roles.add(new SimpleGrantedAuthority(role.getName()));
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);

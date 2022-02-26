@@ -13,4 +13,10 @@ public interface IMovieDao extends CrudRepository<Movie, Long> {
     List<ArrayList> listImageNameAndDate();
 
     List<Movie> findByName(String name);
+
+    @Query("select name, score from Movie order by name")
+    List<ArrayList> findByOrderASC();
+
+    @Query("select name, score, createAt from Movie order by name desc")
+    List<ArrayList> findByOrderDESC();
 }

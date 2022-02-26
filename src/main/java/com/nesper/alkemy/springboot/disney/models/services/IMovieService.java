@@ -18,4 +18,9 @@ public interface IMovieService {
     List<ArrayList> listImageNameAndDate();
 
     List<Movie> findByName(String name);
+
+    List<ArrayList> findByOrderASC();
+
+    List<ArrayList> findByOrderDESC();
+
 }

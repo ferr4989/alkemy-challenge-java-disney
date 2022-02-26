@@ -1,6 +1,5 @@
 package com.nesper.alkemy.springboot.disney.controllers;
 
-import com.nesper.alkemy.springboot.disney.models.entity.Genre;
 import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.services.UserServiceImpl;
 import com.nesper.alkemy.springboot.disney.models.services.SendGridService;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
 public class UserRestController {
 
     @Autowired
@@ -31,7 +29,7 @@ public class UserRestController {
         return userService.findAll();
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public void registerUser(@Valid @RequestBody User user, BindingResult result) throws IOException {
         if (result.hasErrors()) {
             System.out.println("Revise los datos ingresados. Campos vacios o invalidos");

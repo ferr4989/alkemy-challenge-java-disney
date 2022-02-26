@@ -74,12 +74,4 @@ public class CharacterRestController {
         return characterService.findByAge(age);
     }
 
-    /* Implementar cuando esté la relación con movies
-    @GetMapping("/characters/{movies}")
-    public List<Character> listByMovie(@PathVariable Long idMovie) {
-        return characterService.findById_Movie(idMovie);
-    }
-    */
-
-
 }

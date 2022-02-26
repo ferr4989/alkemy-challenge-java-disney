@@ -47,5 +47,14 @@ public class MovieServiceImpl implements IMovieService{
         return movieDao.findByName(name);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArrayList> findByOrderASC() {
+        return movieDao.findByOrderASC();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ArrayList> findByOrderDESC() { return movieDao.findByOrderDESC(); }
 
 }

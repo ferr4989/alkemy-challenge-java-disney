@@ -20,5 +20,6 @@ com\nesper\alkemy\springboot\disney\controllers\UserRestController.class
 com\nesper\alkemy\springboot\disney\controllers\GenreRestController.class
 com\nesper\alkemy\springboot\disney\models\services\UserServiceImpl.class
 com\nesper\alkemy\springboot\disney\config\SwaggerConfig.class
+com\nesper\alkemy\springboot\disney\models\entity\Role.class
 com\nesper\alkemy\springboot\disney\models\services\GenreServiceImpl.class
 com\nesper\alkemy\springboot\disney\Application.class

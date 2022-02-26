@@ -18,6 +18,7 @@ public class MovieRestController {
 
     @GetMapping("/movies")
     public List<ArrayList> listImageNameAndDate() {
+
         return movieService.listImageNameAndDate();
     }
 
@@ -61,6 +62,17 @@ public class MovieRestController {
     @GetMapping("/movies/name={name}")
     public List<Movie> listByName(@PathVariable String name) {
         return movieService.findByName(name);
+    }
+
+    @GetMapping("/movies/order={order}")
+    public List<ArrayList> listByOrder(@PathVariable String order) {
+
+        if(order.toUpperCase().equals("ASC")){
+            return movieService.findByOrderASC();
+        } else if (order.toUpperCase().equals("DESC")){
+            return movieService.findByOrderDESC();
+        }
+        return null;
     }
 
 }
