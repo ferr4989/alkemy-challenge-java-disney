@@ -5,9 +5,10 @@ import com.nesper.alkemy.springboot.disney.models.entity.Character;
 import com.nesper.alkemy.springboot.disney.models.services.ICharacterService;
 import com.nesper.alkemy.springboot.disney.models.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,22 +31,31 @@ public class CharacterRestController {
     }
 
     @PostMapping("/createCharacter")
-    public Character create(@RequestBody Character character) {
-        this.characterService.save(character);
-        return character;
+    public void create(@Valid @RequestBody Character character, BindingResult result) {
+        if(result.hasErrors()){
+            System.out.println("Revise los datos ingresados. Campos vacios o invalidos");
+        } else{
+            this.characterService.save(character);
+            System.out.println("Personaje creado con exito");
+        }
     }
 
     @PostMapping("/updateCharacter/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Character update(@RequestBody Character character, @PathVariable Long id) {
-        Character currentCharacter = this.characterService.findById(id);
-        currentCharacter.setImage(character.getImage());
-        currentCharacter.setName(character.getName());
-        currentCharacter.setAge(character.getAge());
-        currentCharacter.setWeight(character.getWeight());
-        currentCharacter.setHistory(character.getHistory());
-        this.characterService.save(currentCharacter);
-        return currentCharacter;
+    public void update(@Valid @RequestBody Character character, BindingResult result, @PathVariable Long id) {
+
+        if(result.hasErrors()){
+            System.out.println("Revise los datos ingresados. Campos vacios o invalidos");
+        } else {
+            Character currentCharacter = this.characterService.findById(id);
+            currentCharacter.setImage(character.getImage());
+            currentCharacter.setName(character.getName());
+            currentCharacter.setAge(character.getAge());
+            currentCharacter.setWeight(character.getWeight());
+            currentCharacter.setHistory(character.getHistory());
+            currentCharacter.setMovies(character.getMovies());
+            this.characterService.save(currentCharacter);
+            System.out.println("Personaje actualizado con exito");
+        }
     }
 
     @GetMapping("/deleteCharacter/{id}")

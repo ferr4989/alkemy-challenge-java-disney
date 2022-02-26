@@ -13,7 +13,7 @@ public interface IMovieService {
 
     Movie findById(Long id);
 
-    void delete(Movie cliente);
+    void delete(Movie movie);
 
     List<ArrayList> listImageNameAndDate();
 

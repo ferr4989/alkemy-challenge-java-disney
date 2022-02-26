@@ -3,11 +3,11 @@ package com.nesper.alkemy.springboot.disney.models.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nesper.alkemy.springboot.disney.models.entity.Genre;
 import com.nesper.alkemy.springboot.disney.models.entity.Role;
 import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.dao.IUserDao;
 
-import com.nesper.alkemy.springboot.disney.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,7 +42,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
     }
 
-
+    @Override
+    @Transactional(readOnly = true)
+    public User findById(Long id) { return userDao.findById(id).orElse(null);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -55,6 +58,12 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
     public User saveUser(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return userDao.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(User user) {
+        userDao.delete(user);
     }
 
 }

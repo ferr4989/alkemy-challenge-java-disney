@@ -3,9 +3,9 @@ package com.nesper.alkemy.springboot.disney.models.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -17,10 +17,15 @@ public class Character implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String image;
+    @NotEmpty
     private String name;
+    @NotNull
     private int age;
+    @NotNull
     private float weight;
+    @NotEmpty
     private String history;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

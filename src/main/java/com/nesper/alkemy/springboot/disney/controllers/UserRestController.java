@@ -1,20 +1,16 @@
 package com.nesper.alkemy.springboot.disney.controllers;
 
+import com.nesper.alkemy.springboot.disney.models.entity.Genre;
 import com.nesper.alkemy.springboot.disney.models.entity.User;
 import com.nesper.alkemy.springboot.disney.models.services.UserServiceImpl;
 import com.nesper.alkemy.springboot.disney.models.services.SendGridService;
 
-
-//import com.auth0.jwt.JWT;
-//import com.auth0.jwt.JWTVerifier;
-//import com.auth0.jwt.algorithms.Algorithm;
-//import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,11 +32,20 @@ public class UserRestController {
     }
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public User registerUser(@RequestBody User user) throws IOException {
-        sendGridService.sendEmail(user.getEmail());
-        this.userService.saveUser(user);
-        return user;
+    public void registerUser(@Valid @RequestBody User user, BindingResult result) throws IOException {
+        if (result.hasErrors()) {
+            System.out.println("Revise los datos ingresados. Campos vacios o invalidos");
+        } else {
+            sendGridService.sendEmail(user.getEmail());
+            this.userService.saveUser(user);
+            System.out.println("Usuario registrado con exito");
+        }
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public void delete(@PathVariable Long id) {
+        User currentUser = userService.findById(id);
+        userService.delete(currentUser);
     }
 
 }

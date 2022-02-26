@@ -24,9 +24,11 @@ public class User implements Serializable {
     @NotEmpty
     private String password;
 
+    @NotEmpty
     @Email
     private String email;
 
+    @NotEmpty
     @OneToMany
     @JoinColumn(name="id_user")
     private List<Role> roles;
