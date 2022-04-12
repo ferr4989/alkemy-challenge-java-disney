@@ -17,6 +17,8 @@ public class CharacterRestController {
 
     private UserServiceImpl userService;
 
+    //hola
+
     @Autowired
     private ICharacterService characterService;
 
